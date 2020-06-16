@@ -46,7 +46,7 @@ for repo in repo_list:
         for i in range(pr_count):
 
             # Getting PR Info
-            pr_url_list.append('https://{YOUR_BITBUCKET_DOMAIN}/projects/{PROJECT_NAME}/repos/' + repo + '/pull-requests/'.format(YOUR_BITBUCKET_DOMAIN=YOUR_BITBUCKET_DOMAIN, PROJECT_NAME=PROJECT_NAME) + str(data['values'][i]['id']))
+            pr_url_list.append('https://{YOUR_BITBUCKET_DOMAIN}/projects/{PROJECT_NAME}/repos/'.format(YOUR_BITBUCKET_DOMAIN=YOUR_BITBUCKET_DOMAIN, PROJECT_NAME=PROJECT_NAME) + repo + '/pull-requests/' + str(data['values'][i]['id']))
             
             # Getting PR Reviewer Info
             if 'user' in str(data['values'][i]['reviewers']):
