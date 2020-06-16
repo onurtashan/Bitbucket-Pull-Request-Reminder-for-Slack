@@ -12,12 +12,12 @@ YOUR_ACCESS_TOKEN = ''
 
 # Send Message to Channel with Slack WebHook 
 def api_call(msg):
-    slack = Slack(url='{YOUR_WEBHOOK_URL}'.format(YOUR_WEBHOOK_URL))
+    slack = Slack(url='{YOUR_WEBHOOK_URL}'.format(YOUR_WEBHOOK_URL=YOUR_WEBHOOK_URL))
     slack.post(text=msg)
 
 # Getting Repo List in Project
-repo_url = 'https://{YOUR_BITBUCKET_DOMAIN}/rest/api/1.0/projects/{PROJECT_NAME}/repos?limit=1000'.format(YOUR_BITBUCKET_DOMAIN, PROJECT_NAME)
-r_repo = requests.get(repo_url, headers= {"Authorization": "Bearer {YOUR_ACCESS_TOKEN}".format(YOUR_ACCESS_TOKEN)})
+repo_url = 'https://{YOUR_BITBUCKET_DOMAIN}/rest/api/1.0/projects/{PROJECT_NAME}/repos?limit=1000'.format(YOUR_BITBUCKET_DOMAIN=YOUR_BITBUCKET_DOMAIN, PROJECT_NAME=PROJECT_NAME)
+r_repo = requests.get(repo_url, headers= {"Authorization": "Bearer {YOUR_ACCESS_TOKEN}".format(YOUR_ACCESS_TOKEN=YOUR_ACCESS_TOKEN)})
 data_repo = json.loads(r_repo.text)
 
 repo_list = []
@@ -34,8 +34,8 @@ pr_cd_day_list = []
 pr_cd_hour_list = []
 
 for repo in repo_list:
-    url = 'https://{YOUR_BITBUCKET_DOMAIN}/rest/api/1.0/projects/{PROJECT_NAME}/repos/' + repo + '/pull-requests'.format(YOUR_BITBUCKET_DOMAIN, PROJECT_NAME)
-    r = requests.get(url, headers= {"Authorization": "Bearer {YOUR_ACCESS_TOKEN}".format(YOUR_ACCESS_TOKEN)})
+    url = 'https://{YOUR_BITBUCKET_DOMAIN}/rest/api/1.0/projects/{PROJECT_NAME}/repos/'.format(YOUR_BITBUCKET_DOMAIN=YOUR_BITBUCKET_DOMAIN, PROJECT_NAME=PROJECT_NAME) + repo + '/pull-requests'
+    r = requests.get(url, headers= {"Authorization": "Bearer {YOUR_ACCESS_TOKEN}".format(YOUR_ACCESS_TOKEN=YOUR_ACCESS_TOKEN)})
     data = json.loads(r.text)
 
     # Getting PR Count in Repo
@@ -46,7 +46,7 @@ for repo in repo_list:
         for i in range(pr_count):
 
             # Getting PR Info
-            pr_url_list.append('https://{YOUR_BITBUCKET_DOMAIN}/projects/{PROJECT_NAME}/repos/' + repo + '/pull-requests/'.format(YOUR_BITBUCKET_DOMAIN, PROJECT_NAME) + str(data['values'][i]['id']))
+            pr_url_list.append('https://{YOUR_BITBUCKET_DOMAIN}/projects/{PROJECT_NAME}/repos/' + repo + '/pull-requests/'.format(YOUR_BITBUCKET_DOMAIN=YOUR_BITBUCKET_DOMAIN, PROJECT_NAME=PROJECT_NAME) + str(data['values'][i]['id']))
             
             # Getting PR Reviewer Info
             if 'user' in str(data['values'][i]['reviewers']):
@@ -84,9 +84,4 @@ now = datetime.now()
 hour = now.hour
 if hour >= 9 and hour <= 18:
     api_call(msg)
-
-
-
-
-    
 
